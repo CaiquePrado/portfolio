@@ -67,7 +67,7 @@ export default async function Home() {
     <>
       <HeroSection homeInfo={pageData} />
       <KnowTechs techs={pageData.knownTechs} />
-      <HighLightedProject />
+      <HighLightedProject projects={pageData.highlightProjects} />
       <WorkExperience />
     </>
   );

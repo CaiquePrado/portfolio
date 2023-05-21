@@ -1,17 +1,22 @@
+import { project } from "@/app/@types/projects";
 import { Link } from "@/app/components/link";
 import { TechBadge } from "@/app/components/tech-badge";
 import Image from "next/image";
 import { HiArrowNarrowRight } from "react-icons/hi";
 
-export const ProjectCard = () => {
+interface ProjectCardProps {
+  project: project;
+}
+
+export const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
     <div className="flex gap-6 lg:gap-12 flex-col lg:flex-row">
       <div className=" w-full h-full">
         <Image
           width={420}
           height={304}
-          src="/images/profile-pic.png"
-          alt="Thumbnail do projeto BookWise"
+          src={project.thumbnail.url}
+          alt={`Thumbnail do projeto BookWise ${project.title}`}
           className="object-cover rounded-lg w-full h-[200px] sm:h-[300px] lg:w-[420px] lg:min-h-full"
         />
       </div>
@@ -23,16 +28,18 @@ export const ProjectCard = () => {
             width={20}
             height={20}
           />
-          BookWise
+          {project.title}
         </h3>
-        <p className="text-gray-400 my-6">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio,
-          quos libero fugit sapiente ipsum hic facilis. Iste quod velit aperiam.
-        </p>
+        <p className="text-gray-400 my-6">{project.shortDescription}</p>
         <div className="flex gap-x-2 gap-y-3 flex-wrap mb-8 lg:max-w-[350px]">
-          <TechBadge name="Next.Js" />
+          {project.technologies.map((tech) => (
+            <TechBadge
+              key={`${project.title}-tech-${tech.name}`}
+              name={tech.name}
+            />
+          ))}
         </div>
-        <Link href="/projects/book-wise">
+        <Link href={`projects/${project.slug}`}>
           Ver projeto <HiArrowNarrowRight />
         </Link>
       </div>
