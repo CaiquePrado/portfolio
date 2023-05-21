@@ -7,29 +7,56 @@ import { fetchHygraphQuery } from "./utils/fetch-hygraph-query";
 
 const getPageData = async (): Promise<HomePageData> => {
   const query = `
-  query PageInfoQuery {
-    page(where: {slug: "home"}) {
-      introduction {
-        raw
+    query PageInfoQuery {
+      page(where: {slug: "home"}) {
+        introduction {
+          raw
+        }
+        technologies {
+          name
+        }
+        profilePicture {
+          url
+        }
+        socials {
+          url
+          iconSvg
+        }
+        knownTechs {
+          iconSvg
+          name
+          startDate
+        }
+        highlightProjects {
+          slug
+          thumbnail {
+            url
+          }
+          title
+          shortDescription
+          technologies {
+            name
+          }
+        }
       }
-      technologies {
-        name
-      }
-      profilePicture {
-        url
-      }
-      socials {
-        url
-        iconSvg
-      }
-      knownTechs {
-        iconSvg
-        name
+      workExperiences {
+        companyLogo {
+          url
+        }
+        role
+        companyName
+        companyUrl
         startDate
+        endDate
+        description {
+          raw
+        }
+        technologies {
+          name
+        }
       }
     }
-  }
-`;
+  `;
   return fetchHygraphQuery(query, 1000 * 60 * 60 * 24);
 };
 
