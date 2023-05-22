@@ -5,6 +5,10 @@ import { KnowTechs } from "./components/pages/home/know-techs";
 import { WorkExperience } from "./components/pages/home/work-experience";
 import { fetchHygraphQuery } from "./utils/fetch-hygraph-query";
 
+export const metadata = {
+  title: "Home",
+};
+
 const getPageData = async (): Promise<HomePageData> => {
   const query = `
     query PageInfoQuery {
@@ -57,18 +61,22 @@ const getPageData = async (): Promise<HomePageData> => {
       }
     }
   `;
-  return fetchHygraphQuery(query, 1000 * 60 * 60 * 24);
+
+  return fetchHygraphQuery(
+    query,
+    1000 * 60 * 60 * 24 // 1 day
+  );
 };
 
 export default async function Home() {
-  const { page: pageData } = await getPageData();
+  const { page: pageData, workExperiences } = await getPageData();
 
   return (
     <>
       <HeroSection homeInfo={pageData} />
       <KnowTechs techs={pageData.knownTechs} />
       <HighLightedProject projects={pageData.highlightProjects} />
-      <WorkExperience />
+      <WorkExperience experiences={workExperiences} />
     </>
   );
 }
