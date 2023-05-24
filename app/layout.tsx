@@ -4,7 +4,16 @@ import { BackToTop } from "./components/back-to-top";
 import { ContactForm } from "./components/contact-form";
 import { Footer } from "./components/footer";
 import { Header } from "./components/header";
+import { Toaster } from "./components/toaster";
 import "./globals.css";
+
+export const metadata = {
+  icons: [
+    {
+      url: "/favicon.svg",
+    },
+  ],
+};
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,6 +30,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR" className={`${inter.variable} ${plexMono.variable}`}>
       <body>
+        <Toaster />
         <BackToTop />
         <Header />
         {children}
