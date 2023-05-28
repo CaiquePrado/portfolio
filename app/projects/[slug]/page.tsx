@@ -1,11 +1,12 @@
 import {
+  ProjectPageData,
   ProjectsPageStaticData,
-  projectPageData,
 } from "@/app/@types/page-info";
 import { ProjectDetails } from "@/app/components/pages/project/project-details";
 import { ProjectSections } from "@/app/components/pages/project/project-sections";
 import { fetchHygraphQuery } from "@/app/utils/fetch-hygraph-query";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 type ProjectProps = {
   params: {
@@ -13,7 +14,7 @@ type ProjectProps = {
   };
 };
 
-const getProjectDetails = async (slug: string): Promise<projectPageData> => {
+const getProjectDetails = async (slug: string): Promise<ProjectPageData> => {
   const query = `
   query ProjectQuery() {
     project(where: {slug: "${slug}"}) {
@@ -43,7 +44,7 @@ const getProjectDetails = async (slug: string): Promise<projectPageData> => {
     }
   }
   `;
-  const data = fetchHygraphQuery<projectPageData>(
+  const data = fetchHygraphQuery<ProjectPageData>(
     query,
     1000 * 60 * 60 * 24 // 1 day
   );
@@ -53,6 +54,8 @@ const getProjectDetails = async (slug: string): Promise<projectPageData> => {
 
 export default async function Project({ params: { slug } }: ProjectProps) {
   const { project } = await getProjectDetails(slug);
+
+  if (!project?.title) return notFound();
 
   return (
     <>
@@ -64,13 +67,14 @@ export default async function Project({ params: { slug } }: ProjectProps) {
 
 export async function generateStaticParams() {
   const query = `
-  query ProjectSlugsQuery(){
-    projects(first:100){
-      slug
+    query ProjectsSlugsQuery() {
+      projects(first: 100) {
+        slug
+      }
     }
-  }`;
-
+  `;
   const { projects } = await fetchHygraphQuery<ProjectsPageStaticData>(query);
+
   return projects;
 }
 

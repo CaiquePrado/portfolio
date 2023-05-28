@@ -1,14 +1,13 @@
 "use client";
 
+import { WorkExperience } from "@/app/@types/work-experience";
+import { RichText } from "@/app/components/rich-text";
 import { TechBadge } from "@/app/components/tech-badge";
+import { fadeUpAnimation, techBadgeAnimation } from "@/app/libs/animations";
 import { differenceInMonths, differenceInYears, format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { motion } from "framer-motion";
 import Image from "next/image";
-
-import { WorkExperience } from "@/app/@types/work-experience";
-import { RichText } from "@/app/components/rich-text";
-import { fadeUpAnimation, techBadgeAnimation } from "@/app/libs/animations";
 
 type ExperienceItemProps = {
   experience: WorkExperience;
@@ -49,9 +48,9 @@ export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
 
   return (
     <motion.div
+      className="grid grid-cols-[40px,1fr] gap-4 md:gap-10"
       {...fadeUpAnimation}
       transition={{ duration: 0.5 }}
-      className="grid grid-cols-[40px,1fr] gap-4 md:gap-10"
     >
       <div className="flex items-center flex-col gap-4">
         <div className="rounded-full border border-gray-500 p-0.5">

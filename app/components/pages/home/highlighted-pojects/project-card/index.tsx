@@ -1,6 +1,6 @@
 "use client";
 
-import { project } from "@/app/@types/projects";
+import { Project } from "@/app/@types/projects";
 import { Link } from "@/app/components/link";
 import { TechBadge } from "@/app/components/tech-badge";
 import { fadeUpAnimation } from "@/app/libs/animations";
@@ -8,9 +8,9 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { HiArrowNarrowRight } from "react-icons/hi";
 
-interface ProjectCardProps {
-  project: project;
-}
+type ProjectCardProps = {
+  project: Project;
+};
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   return (

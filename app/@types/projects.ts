@@ -13,7 +13,7 @@ export type ProjectSection = {
   };
 };
 
-export type project = {
+export type Project = {
   slug: string;
   thumbnail: {
     url: string;

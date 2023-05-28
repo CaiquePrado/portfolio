@@ -8,6 +8,10 @@ import { Toaster } from "./components/toaster";
 import "./globals.css";
 
 export const metadata = {
+  title: {
+    default: "Home",
+    template: "%s | Caique",
+  },
   icons: [
     {
       url: "/favicon.svg",
@@ -32,6 +36,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <Toaster />
         <BackToTop />
+
         <Header />
         {children}
         <ContactForm />

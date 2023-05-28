@@ -5,9 +5,9 @@ import { fadeUpAnimation } from "@/app/libs/animations";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-interface ProjectSectionsProps {
+type ProjectSectionsProps = {
   sections: ProjectSection[];
-}
+};
 
 export const ProjectSections = ({ sections }: ProjectSectionsProps) => {
   return (
